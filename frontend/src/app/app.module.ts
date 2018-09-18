@@ -6,13 +6,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Web3Service } from './services/web3.service';
 import { SmartContractService } from './services/SmartContract.service';
-import { TestComponent } from './test/test.component';
+import { CustomerComponent } from './customer/customer.component';
+import { OwnerComponent } from './owner/owner.component';
+import { JudgeComponent } from './judge/judge.component';
+import { OfferComponent } from './offer/offer.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    CustomerComponent,
+    OwnerComponent,
+    JudgeComponent,
+    OfferComponent
   ],
   imports: [
     BrowserModule,
