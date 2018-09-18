@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class JudgeComponent implements OnInit {
 
+  public payout = 2;
   contractId;
 
   constructor(
