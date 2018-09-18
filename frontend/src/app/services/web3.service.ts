@@ -57,9 +57,10 @@ export class Web3Service {
     return new Promise<string>(async (resolve, reject) => {
 
       let source =  CarRentSource + '';
-      source = source.replace('20', '20000000000000000');
-      source = source.replace('100', '30000000000000000');
+      source = source.replace('110', '2000000000000000000');
+      source = source.replace('20',  '1000000000000000000');
 
+      console.log(source);
       console.log('assembeld source');
       const compiled = await this.compile(source);
       console.log('assembeld compiled');

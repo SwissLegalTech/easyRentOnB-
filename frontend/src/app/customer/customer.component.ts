@@ -26,29 +26,28 @@ export class CustomerComponent implements OnInit {
     await this.web3Service.connect();
 
     console.log(this.contractId);
+    this.booked = true;
     await this.smrt.acceptCar(this.contractId);
-      this.booked = true;
   }
 
   public async returnCar() {
     await this.web3Service.connect();
-    await  this.smrt.returnCar(this.contractId);
     this.payed = true;
+    await  this.smrt.returnCar(this.contractId);
   }
 
   public async acceptPayout() {
     await this.web3Service.connect();
-      this.smrt.acceptDeposit(this.contractId);
-      this.booked = false;
-      this.payed = false;
+    this.booked = false;
+    this.payed = false;
+    this.smrt.acceptDeposit(this.contractId);
   }
 
   public async openDispute() {
     await this.web3Service.connect();
-
-      this.smrt.disputeDeposit(this.contractId);
-      this.booked = false;
-      this.payed = false;
+    this.booked = false;
+    this.payed = false;
+    this.smrt.disputeDeposit(this.contractId);
   }
 
   ngOnInit() {

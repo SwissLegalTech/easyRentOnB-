@@ -15,15 +15,13 @@ export class JudgeComponent implements OnInit {
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService,
-    private router: Router,  
+    private router: Router,
     private route: ActivatedRoute) {
   }
 
   public async submitPayout(payout) {
     await this.web3Service.connect();
-    if (this.smrt.canJudgeDeposit(this.contractId)) {
-      this.smrt.judgeDeposit(this.contractId, payout);
-    }
+    this.smrt.judgeDeposit(this.contractId, payout);
   }
 
   ngOnInit() {

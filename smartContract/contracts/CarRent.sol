@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 contract Vat  {
   uint256 public vatInPermill=77;
-  address public taxAgency = 0xBC269A349a26BA0854c824D49d44Af01E72dDDe0;
+  address public taxAgency = 0xA5383D0A5a0906528D71081ED871e1B1Ea371f4e;
 
   mapping (address => uint8) whitelist;
 
@@ -19,16 +19,16 @@ contract Vat  {
   }
 
   function vatTransfer(address destination, uint256 amount) internal {
-    uint8 t = whitelist[msg.sender];
-    if(t>=1)
-    {
-        uint256 vat = amount*vatInPermill/1000;
-        taxAgency.transfer(vat);
-        destination.transfer(amount-vat);
-    }
-    else{
-        transfer(destination,amount);
-    }
+    // uint8 t = whitelist[msg.sender];
+    // if(t>=1)
+    // {
+    uint256 vat = amount*vatInPermill/1000;
+    taxAgency.transfer(vat);
+    destination.transfer(amount-vat);
+    // }
+    // else{
+    //     transfer(destination,amount);
+    // }
   }
 
   function transfer(address destination,uint256 amount) internal {
@@ -43,7 +43,7 @@ contract CarRent is Vat {
   address public renter;
   address public judge = 0xE5e32bd821F1C7Be5C2B2bE466d4e762C803747B;
   uint256 public rent = 20;
-  uint256 public deposit = 100;
+  uint256 public deposit = 110;
   uint256 public funds;
   bool public disputed =false;
   uint8 public state = 0;
