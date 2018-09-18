@@ -9,6 +9,9 @@ import { SmartContractService } from '../services/SmartContract.service';
 })
 export class OfferComponent  {
 
+  public deposit = 2;
+  public rent = 1;
+
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService
