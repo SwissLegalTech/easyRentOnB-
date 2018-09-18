@@ -17,8 +17,7 @@ export class JudgeComponent implements OnInit {
     private smrt: SmartContractService,
     private router: Router,  
     private route: ActivatedRoute) {
-      
-    }
+  }
 
   public async submitPayout(payout) {
     await this.web3Service.connect();

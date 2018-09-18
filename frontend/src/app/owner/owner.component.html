@@ -5,16 +5,16 @@
 </div>
 <hr/>
 <div class="ng-show" ng-show="returned">
-  <p>Deposit payout</p>
+  <p class="ml-sm-4">Payout Deposit</p>
     <div class="form-group">
       <div class="row">
-            <label for="payout" class="col-sm-2 control-label">Payout amount</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control" id="payout" placeholder="CHF" [(ngModel)]="payout"/>
+            <label for="payout" class="ml-sm-4 col-sm-2 control-label">Payout amount</label>
+            <div class="col-sm-2">
+              <input type="number" class="form-control" id="payout" placeholder="ETH" [(ngModel)]="payout"/>
             </div>
       </div>
     </div>
-    <div>
+    <div class="col-sm-2">
       <button type="submit" (click)="submitPayout(payout)" class="btn btn-primary">Payout</button>
     </div>
 </div>

@@ -18,8 +18,8 @@ export class OfferComponent  {
     await this.web3Service.connect();
     const o = await this.web3Service.compileContractAndDepoy(rent, deposit);
     console.log(o);
-    // const p = this.smrt.acceptCar(o);
-    window.location.href = 'https://localhost:4200/owner/' + o;
+    window.location.href = 'http://localhost:4200/owner/' + o;
+
   }
 
 }

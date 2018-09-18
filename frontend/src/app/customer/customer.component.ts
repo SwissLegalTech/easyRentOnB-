@@ -11,6 +11,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class CustomerComponent implements OnInit {
 
   contractId;
+  booked;
+  payed;
+
 
   constructor(
     private web3Service: Web3Service,
@@ -21,19 +24,31 @@ export class CustomerComponent implements OnInit {
 
   public async bookCar() {
     await this.web3Service.connect();
+
     console.log(this.contractId);
     await this.smrt.acceptCar(this.contractId);
+      this.booked = true;
+  }
 
+  public async returnCar() {
+    await this.web3Service.connect();
+    await  this.smrt.returnCar(this.contractId);
+    this.payed = true;
   }
 
   public async acceptPayout() {
     await this.web3Service.connect();
-    await this.smrt.acceptDeposit(this.contractId);
+      this.smrt.acceptDeposit(this.contractId);
+      this.booked = false;
+      this.payed = false;
   }
 
   public async openDispute() {
     await this.web3Service.connect();
-    await this.smrt.disputeDeposit(this.contractId);
+
+      this.smrt.disputeDeposit(this.contractId);
+      this.booked = false;
+      this.payed = false;
   }
 
   ngOnInit() {
