@@ -18,7 +18,7 @@ contract('tmp', function([owner, renter, judge, anotherAccount]) {
 
         it('testit', async function() {
             console.log('can accept Car ' + await this.contract.canAcceptCar({ from: renter }));
-            await this.contract.acceptCar({ from: renter, value: 300000 });
+            await this.contract.acceptCar({ from: renter, value: 5000000000000000000 });
 
             console.log('can return Car ' + await this.contract.canReturnCar({ from: renter }));
             await this.contract.returnCar({ from: renter });

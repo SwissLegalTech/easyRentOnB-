@@ -18,42 +18,36 @@ export class CustomerComponent implements OnInit {
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService,
-    private router: Router,  
-    private route: ActivatedRoute) {    
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
   public async bookCar() {
     await this.web3Service.connect();
-    if (this.smrt.canAcceptCar(this.contractId)) {
-      this.smrt.acceptCar(this.contractId);
-      this.booked = true;
-    }
+
+    console.log(this.contractId);
+    this.booked = true;
+    await this.smrt.acceptCar(this.contractId);
   }
 
   public async returnCar() {
     await this.web3Service.connect();
-    if (this.smrt.canReturnCar(this.contractId)) {
-      this.smrt.returnCar(this.contractId);
-      this.payed = true;
-    }
+    this.payed = true;
+    await  this.smrt.returnCar(this.contractId);
   }
 
   public async acceptPayout() {
     await this.web3Service.connect();
-    if (this.smrt.canAcceptDeposit(this.contractId)) {
-      this.smrt.acceptDeposit(this.contractId)
-      this.booked = false;
-      this.payed = false;
-    }
+    this.booked = false;
+    this.payed = false;
+    this.smrt.acceptDeposit(this.contractId);
   }
 
   public async openDispute() {
     await this.web3Service.connect();
-    if (this.smrt.canDisputeDeposit(this.contractId)) {
-      this.smrt.disputeDeposit(this.contractId);
-      this.booked = false;
-      this.payed = false;
-    }
+    this.booked = false;
+    this.payed = false;
+    this.smrt.disputeDeposit(this.contractId);
   }
 
   ngOnInit() {

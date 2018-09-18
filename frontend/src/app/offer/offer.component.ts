@@ -9,6 +9,9 @@ import { SmartContractService } from '../services/SmartContract.service';
 })
 export class OfferComponent  {
 
+  public deposit = 2;
+  public rent = 1;
+
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService
@@ -18,8 +21,8 @@ export class OfferComponent  {
     await this.web3Service.connect();
     const o = await this.web3Service.compileContractAndDepoy(rent, deposit);
     console.log(o);
-    const p = this.smrt.acceptCar(o);
-    window.location.href = "localhost:4200/owner/"+o;
+    window.location.href = 'http://localhost:4200/owner/' + o;
+
   }
 
 }

@@ -10,12 +10,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class OwnerComponent implements OnInit {
 
+  public payout = 1;
   contractId;
 
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService,
-    private route: ActivatedRoute) {    
+    private route: ActivatedRoute) {
   }
 
   public async submitPayout(payout) {

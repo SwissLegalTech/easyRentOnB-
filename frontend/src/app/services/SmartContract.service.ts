@@ -43,7 +43,7 @@ export class SmartContractService {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
     return await new Promise((resolve, reject) => {
-      instance.acceptCar({gas: 500000, from: acc, value: 500000}, (e, res) => {
+      instance.acceptCar({gas: 500000, from: acc, value: '5000000000000000000'}, (e, res) => {
         if (e) { reject(e); }
         resolve();
       } );
@@ -126,7 +126,7 @@ export class SmartContractService {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
     return await new Promise((resolve, reject) => {
-      instance.judgeDeposit(amount, {gas: 500000, from: acc}, (e, res) => {
+      instance.judgeDeposit('1000000000000000000', {gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
       } );
@@ -147,7 +147,7 @@ export class SmartContractService {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
     return await new Promise((resolve, reject) => {
-      instance.returnDeposit(amount, {gas: 500000, from: acc}, (e, res) => {
+      instance.returnDeposit('1000000000000000000', {gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
       } );
