@@ -12,12 +12,11 @@ export class OfferComponent  {
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService
-  ) {
-  }
+  ) {}
 
-  public async createOffer() {
+  public async createOffer(rent, deposit) {
     await this.web3Service.connect();
-   const o = await this.web3Service.compileContractAndDepoy('11', '88');
+   const o = await this.web3Service.compileContractAndDepoy(rent, deposit);
    console.log(o);
    const p = this.smrt.acceptCar(o);
    // const p = this.smrt.returnCar('0x56cc87ec3828e8c4316b12c24869264f5ff9da06');

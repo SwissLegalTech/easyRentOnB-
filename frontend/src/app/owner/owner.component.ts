@@ -16,6 +16,10 @@ export class OwnerComponent implements OnInit {
 
   constructor() { }
 
+  public submitPayout(payout) {
+    console.log("payout" + payout)
+  }
+
   ngOnInit() {
   }
 

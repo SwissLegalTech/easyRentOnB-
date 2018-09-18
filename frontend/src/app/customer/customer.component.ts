@@ -9,6 +9,14 @@ export class CustomerComponent implements OnInit {
 
   constructor() { }
 
+  public bookCar() {
+
+  }
+
+  public openDispute() {
+    
+  }
+
   ngOnInit() {
   }
 
