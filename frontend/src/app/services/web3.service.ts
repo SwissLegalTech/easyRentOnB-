@@ -53,19 +53,20 @@ export class Web3Service {
   }
 
 
-  public async compileContractAndDepoy(rent, deposit): Promise<string> {
-    const acc = await this.getAccount();
+  public async compileContractAndDepoy(rent: string, deposit: string): Promise<string> {
+    return new Promise<string>(async (resolve, reject) => {
 
-    let source =  CarRentSource + '';
-    source = source.replace('20', rent);
-    source = source.replace('100', deposit);
+      let source =  CarRentSource + '';
+      source = source.replace('20', '20000000000000000');
+      source = source.replace('100', '30000000000000000');
 
-    console.log('assembeld source');
-    const compiled = await this.compile(source);
-    console.log('assembeld compiled');
-    const o = await this.deploy(compiled);
-    console.log('deployed');
-    return o;
+      console.log('assembeld source');
+      const compiled = await this.compile(source);
+      console.log('assembeld compiled');
+      const o = await this.deploy(compiled);
+      console.log('deployed', o );
+      resolve(o);
+    });
   }
 
   private async compile(source) {
@@ -80,23 +81,24 @@ export class Web3Service {
   }
 
   private async deploy(compiled): Promise<string> {
-    console.log('deploy!');
-    const abi = JSON.parse(compiled.contracts[':CarRent'].interface);
-    const acc = await this.getAccount();
-    const contract = this.web3.eth.contract(abi);
-    return new Promise<string>((resolve, reject) => {
-      contract.new({
-          data: '0x' + compiled.contracts[':CarRent'].bytecode,
-          from: acc,
-          gas: 900000 * 2
-      }, (err, res) => {
-          if (err) {
-              console.log(err);
-              return;
-          }
-          console.log(res.address);
-          resolve(res.address);
-      });
+    return new Promise<string>(async (resolve, reject) => {
+      const abi = JSON.parse(compiled.contracts[':CarRent'].interface);
+      const acc = await this.getAccount();
+      const contract = this.web3.eth.contract(abi);
+        contract.new({
+            data: '0x' + compiled.contracts[':CarRent'].bytecode,
+            from: acc,
+            gas: 900000 * 2
+        }, (err, res) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            if (res.address) {
+              console.log('here is the address!' + res.address);
+              resolve(res.address);
+            }
+        });
     });
   }
 

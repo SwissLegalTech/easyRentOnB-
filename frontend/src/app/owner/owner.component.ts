@@ -15,7 +15,7 @@ export class OwnerComponent implements OnInit {
   constructor(
     private web3Service: Web3Service,
     private smrt: SmartContractService,
-    private route: ActivatedRoute) {    
+    private route: ActivatedRoute) {
   }
 
   public async submitPayout(payout) {
