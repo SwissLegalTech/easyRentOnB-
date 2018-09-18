@@ -41,7 +41,7 @@ contract Vat  {
 contract CarRent is Vat {
   address public owner;
   address public renter;
-  address public judge = 0xc61762175a7637B7623d999e7BBB1f74cF43dC0C;
+  address public judge = 0xE5e32bd821F1C7Be5C2B2bE466d4e762C803747B;
   uint256 public rent = 20;
   uint256 public deposit = 100;
   uint256 public funds;
@@ -122,7 +122,7 @@ contract CarRent is Vat {
 
   function judgeDeposit(uint256 ownerAmount) public {
     require(judge==msg.sender);
-    require(!disputed);
+    require(disputed);
     require(deposit>0);
     require(ownerAmount<=deposit);
     disputed = true;
