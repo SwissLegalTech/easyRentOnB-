@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import * as smartContract from '../../../../smartContract/build/contracts/CarRent.json';
-// import * as CarRentSource from '../../../../smartContract/contracts/CarRent.sol';
-import * as CarRentSource from 'raw-loader!../../../../smartContract/contracts/CarRent.sol';
+import * as CarRentSource from '../../../../smartContract/contracts/CarRent.sol';
+// import * as CarRentSource from 'raw-loader!../../../../smartContract/contracts/CarRent.sol';
 import { checkBindingNoChanges } from '@angular/core/src/view/util';
 // import * as VatSource from 'raw-loader!../../../../smartContract/contracts/Vat.sol';
 
