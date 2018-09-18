@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Web3Service } from '../services/web3.service';
+import { SmartContractService } from '../services/SmartContract.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-judge',
@@ -7,13 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JudgeComponent implements OnInit {
 
-  constructor() { }
+  contractId;
 
-  public submitPayout(payout) {
-    console.log(payout + "payout judged!")
+  constructor(
+    private web3Service: Web3Service,
+    private smrt: SmartContractService,
+    private router: Router,  
+    private route: ActivatedRoute) {
+      
+    }
+
+  public async submitPayout(payout) {
+    await this.web3Service.connect();
+    if (this.smrt.canJudgeDeposit(this.contractId)) {
+      this.smrt.judgeDeposit(this.contractId, payout);
+    }
   }
 
   ngOnInit() {
+    this.route.params.subscribe(p => {
+      this.contractId = p['id'];
+    });
   }
 
 }

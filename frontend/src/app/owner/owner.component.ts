@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Contract } from '../contract';
+import { Web3Service } from '../services/web3.service';
+import { SmartContractService } from '../services/SmartContract.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-owner',
@@ -7,20 +9,26 @@ import { Contract } from '../contract';
   styleUrls: ['./owner.component.css']
 })
 export class OwnerComponent implements OnInit {
-  contract: Contract = {
-    id: 3,
-    deposit: 100,
-    rent: 10
-  };
-  returned: boolean = false;
 
-  constructor() { }
+  contractId;
 
-  public submitPayout(payout) {
-    console.log("payout" + payout)
+  constructor(
+    private web3Service: Web3Service,
+    private smrt: SmartContractService,
+    private route: ActivatedRoute) {    
+  }
+
+  public async submitPayout(payout) {
+    await this.web3Service.connect();
+    if (this.smrt.canReturnDeposit(this.contractId)) {
+      this.smrt.returnDeposit(this.contractId, payout);
+    }
   }
 
   ngOnInit() {
+    this.route.params.subscribe(p => {
+      this.contractId = p['id'];
+    });
   }
 
 }
