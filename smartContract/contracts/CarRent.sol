@@ -59,7 +59,7 @@ contract CarRent is Vat {
   }
 
   
-  function acceptCar() public whitelisted payable {
+  function acceptCar() public payable {
     require(renter == address(0));
     require(msg.value>=deposit+rent);
     renter = msg.sender;

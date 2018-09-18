@@ -1,29 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Contract } from '../contract';
+import { Component } from '@angular/core';
+import { Web3Service } from '../services/web3.service';
+import { SmartContractService } from '../services/SmartContract.service';
 
 @Component({
   selector: 'app-offer',
   templateUrl: './offer.component.html',
   styleUrls: ['./offer.component.css']
 })
-export class OfferComponent implements OnInit {
-  contract: Contract = {
-    id: 3,
-    deposit: 0,
-    rent: 0
+export class OfferComponent  {
+
+  constructor(
+    private web3Service: Web3Service,
+    private smrt: SmartContractService
+  ) {
   }
 
-  constructor() { 
-    
-  }
-
-  public createOffer() {
-    this.contract.deposit = 1000;
-    this.contract.rent = 10;
-    console.log('d: ' + this.contract.deposit + 'r: ' + this.contract.rent);
-  }
-
-  ngOnInit() {
+  public async createOffer() {
+    await this.web3Service.connect();
+   const o = await this.web3Service.compileContractAndDepoy('11', '88');
+   console.log(o);
+   const p = this.smrt.acceptCar(o);
+   // const p = this.smrt.returnCar('0x56cc87ec3828e8c4316b12c24869264f5ff9da06');
   }
 
 }
