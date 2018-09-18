@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import * as smartContract from '../../../../smartContract/build/contracts/CarRent.json';
-import * as CarRentSource from '../../../../smartContract/contracts/CarRent.sol';
-// import * as CarRentSource from 'raw-loader!../../../../smartContract/contracts/CarRent.sol';
-import { checkBindingNoChanges } from '@angular/core/src/view/util';
+//import * as CarRentSource from '../../../../smartContract/contracts/CarRent.sol';
+//  import * as CarRentSource from 'raw-loader!../../../../smartContract/contracts/CarRent.sol';
+//import { checkBindingNoChanges } from '@angular/core/src/view/util';
 // import * as VatSource from 'raw-loader!../../../../smartContract/contracts/Vat.sol';
 
 
@@ -58,16 +58,16 @@ export class Web3Service {
   public async compileContractAndDepoy(rent, deposit) {
     const acc = await this.getAccount();
 
-    let source =  CarRentSource + '';
-    source = source.replace('20', rent);
-    source = source.replace('100', deposit);
+    // let source =  CarRentSource + '';
+    // source = source.replace('20', rent);
+    // source = source.replace('100', deposit);
 
     console.log('assembeld source');
-    const compiled = await this.compile(source);
+    // const compiled = await this.compile(source);
     console.log('assembeld compiled');
-    const o = await this.deploy(compiled);
+    // const o = await this.deploy(compiled);
     console.log('deployed');
-    return o;
+    // return o;
   }
 
   private async compile(source) {
