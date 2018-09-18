@@ -55,7 +55,7 @@ export class Web3Service {
   }
 
 
-  public async compileContractAndDepoy(rent, deposit) {
+  public async compileContractAndDepoy(rent, deposit): Promise<string> {
     const acc = await this.getAccount();
 
     let source =  CarRentSource + '';
@@ -81,12 +81,12 @@ export class Web3Service {
     });
   }
 
-  private async deploy(compiled) {
+  private async deploy(compiled): Promise<string> {
     console.log('deploy!');
     const abi = JSON.parse(compiled.contracts[':CarRent'].interface);
     const acc = await this.getAccount();
     const contract = this.web3.eth.contract(abi);
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       contract.new({
           data: '0x' + compiled.contracts[':CarRent'].bytecode,
           from: acc,

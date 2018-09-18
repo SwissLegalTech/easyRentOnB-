@@ -20,6 +20,8 @@ export class AppComponent {
     await this.web3.connect();
     const addr = await this.web3.compileContractAndDepoy('11', '88');
     console.log(addr);
-
+    console.log(this.smrt.canAcceptCar(addr));
+    this.smrt.acceptCar(addr);
+    console.log(this.smrt.canReturnCar(addr));
   }
 }

@@ -28,10 +28,21 @@ export class SmartContractService {
     return this.instance;
   }
 
+  public async canAcceptCar(contractAddress: string): Promise<boolean> {
+    const instance = await this.getContract(contractAddress);
+    return await new Promise<boolean>((resolve, reject) => {
+      instance.canAcceptCar((e, res) => {
+        if (e) { reject(e); }
+        resolve(res);
+      });
+    });
+  }
+
+
   public async acceptCar(contractAddress) {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
-    return await new Promise<number>((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       instance.acceptCar({gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
@@ -39,10 +50,20 @@ export class SmartContractService {
     });
   }
 
+  public async canReturnCar(contractAddress: string): Promise<boolean> {
+    const instance = await this.getContract(contractAddress);
+    return await new Promise<boolean>((resolve, reject) => {
+      instance.canReturnCar((e, res) => {
+        if (e) { reject(e); }
+        resolve(res);
+      });
+    });
+  }
+
   public async returnCar(contractAddress) {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
-    return await new Promise<number>((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       instance.returnCar({gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
@@ -50,10 +71,20 @@ export class SmartContractService {
     });
   }
 
+  public async canDisputeDeposit(contractAddress: string): Promise<boolean> {
+    const instance = await this.getContract(contractAddress);
+    return await new Promise<boolean>((resolve, reject) => {
+      instance.canDisputeDeposit((e, res) => {
+        if (e) { reject(e); }
+        resolve(res);
+      });
+    });
+  }
+
   public async disputeDeposit(contractAddress) {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
-    return await new Promise<number>(async (resolve, reject) => {
+    return await new Promise(async (resolve, reject) => {
       instance.disputeDeposit({gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
@@ -61,21 +92,40 @@ export class SmartContractService {
     });
   }
 
+  public async canAcceptDeposit(contractAddress: string): Promise<boolean> {
+    const instance = await this.getContract(contractAddress);
+    return await new Promise<boolean>((resolve, reject) => {
+      instance.canAcceptDeposit((e, res) => {
+        if (e) { reject(e); }
+        resolve(res);
+      });
+    });
+  }
   public async acceptDeposit(contractAddress) {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
-    return await new Promise<number>((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       instance.disputeDeposit({gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
       } );
+    });
+  }
+
+  public async canJudgeDeposit(contractAddress: string): Promise<boolean> {
+    const instance = await this.getContract(contractAddress);
+    return await new Promise<boolean>((resolve, reject) => {
+      instance.canJudgeDeposit((e, res) => {
+        if (e) { reject(e); }
+        resolve(res);
+      });
     });
   }
 
   public async judgeDeposit(contractAddress, amount) {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
-    return await new Promise<number>((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       instance.judgeDeposit(amount, {gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();
@@ -83,10 +133,20 @@ export class SmartContractService {
     });
   }
 
+  public async canReturnDeposit(contractAddress: string): Promise<boolean> {
+    const instance = await this.getContract(contractAddress);
+    return await new Promise<boolean>((resolve, reject) => {
+      instance.canReturnDeposit((e, res) => {
+        if (e) { reject(e); }
+        resolve(res);
+      });
+    });
+  }
+
   public async returnDeposit(contractAddress, amount) {
     const acc = await this.web3Service.getAccount();
     const instance = await this.getContract(contractAddress);
-    return await new Promise<number>((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       instance.returnDeposit(amount, {gas: 500000, from: acc}, (e, res) => {
         if (e) { reject(e); }
         resolve();

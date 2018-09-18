@@ -9,7 +9,7 @@ declare module "*.json" {
   export default value;
 }
 
-// declare module "*.sol" {
-//   const content: string;
-//   export default content;
-// }
+declare module "*.sol" {
+  const content: string;
+  export default content;
+}

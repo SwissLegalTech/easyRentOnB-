@@ -46,23 +46,40 @@ contract CarRent is Vat {
   uint256 public deposit = 100;
   uint256 public funds;
   bool public disputed =false;
+  uint8 public state = 0;
 
   constructor() public {
     owner = msg.sender;
 
   }
 
+  
+  function canAcceptCar() public view returns(bool) {
+    return state==0;
+  }
+
+  
   function acceptCar() public whitelisted payable {
     require(renter == address(0));
     require(msg.value>=deposit+rent);
     renter = msg.sender;
     funds = msg.value - deposit;
+    state = 1;
+  }
+
+  function canReturnCar() public view returns(bool) {
+    return state==1;
   }
 
   function returnCar() public {
     require(renter==msg.sender);
     uint256 rest = funds - rent;
     vatTransfer(owner, rest);
+    state = 2;
+  }
+
+  function canReturnDeposit() public view returns(bool) {
+    return state==2;
   }
 
   function returnDeposit(uint256 amount) public {
@@ -70,6 +87,12 @@ contract CarRent is Vat {
     require(owner==msg.sender);
     deposit -=  amount;
     transfer(renter, amount);
+    state =3;
+    if(deposit ==0 ) state ==10;
+  }
+
+  function canDisputeDeposit() public view returns(bool) {
+    return state==3;
   }
 
   function disputeDeposit() public {
@@ -77,6 +100,11 @@ contract CarRent is Vat {
     require(!disputed);
     require(deposit>0);
     disputed = true;
+    state =4;
+  }
+
+  function canAcceptDeposit() public view returns(bool) {
+    return state==3 && state == 4;
   }
 
   function acceptDeposit() public {
@@ -85,6 +113,11 @@ contract CarRent is Vat {
     disputed = false;
     transfer(owner, deposit);
     deposit = 0;
+    state ==10;
+  }
+
+  function canJudgeDeposit() public view returns(bool) {
+    return  state == 4;
   }
 
   function judgeDeposit(uint256 ownerAmount) public {
@@ -96,6 +129,7 @@ contract CarRent is Vat {
     transfer(owner, ownerAmount);
     transfer(renter, deposit-ownerAmount);
     deposit=0;
+    state ==10;
   }
 
 }
