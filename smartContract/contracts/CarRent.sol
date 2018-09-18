@@ -1,6 +1,42 @@
 pragma solidity ^0.4.24;
 
-import "./Vat.sol";
+contract Vat  {
+  uint256 public vatInPermill=77;
+  address public taxAgency = 0xBC269A349a26BA0854c824D49d44Af01E72dDDe0;
+
+  mapping (address => uint8) whitelist;
+
+  modifier whitelisted() {
+    if (whitelist[msg.sender]>0) _;
+  }
+
+  function whitelistAddress(address add, uint8 t) public {
+      whitelist[add] = t; 
+  }
+
+  function blacklistAddress(address add) public {
+      whitelist[add] = 0; 
+  }
+
+  function vatTransfer(address destination, uint256 amount) internal {
+    uint8 t = whitelist[msg.sender];
+    if(t>=1)
+    {
+        uint256 vat = amount*vatInPermill/1000;
+        taxAgency.transfer(vat);
+        destination.transfer(amount-vat);
+    }
+    else{
+        transfer(destination,amount);
+    }
+  }
+
+  function transfer(address destination,uint256 amount) internal {
+      destination.transfer(amount);
+  }
+
+}
+
 
 contract CarRent is Vat {
   address public owner;
@@ -36,14 +72,14 @@ contract CarRent is Vat {
     transfer(renter, amount);
   }
 
-  function disputeDeposit() {
+  function disputeDeposit() public {
     require(renter==msg.sender);
     require(!disputed);
     require(deposit>0);
     disputed = true;
   }
 
-  function acceptDeposit() {
+  function acceptDeposit() public {
     require(renter==msg.sender);
     require(deposit>0);
     disputed = false;
@@ -51,7 +87,7 @@ contract CarRent is Vat {
     deposit = 0;
   }
 
-  function judgeDeposit(uint256 ownerAmount) {
+  function judgeDeposit(uint256 ownerAmount) public {
     require(judge==msg.sender);
     require(!disputed);
     require(deposit>0);
